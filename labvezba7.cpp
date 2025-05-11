@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 struct Ochela {
     char brand[50];
     int quantity;
@@ -95,13 +93,12 @@ class Prodavnica {
             --numTypes;
             return * this;
         }
-        friend ostream & operator << (ostream & out,
-            const Prodavnica & p) {
-            out << "Ime: " << p.name << endl;
-            out << "Lokacija: " << p.location << endl;
-            out << "Broj na vidovi ochila: " << p.numTypes << endl;
+        friend std::ostream& operator<<(std::ostream& out, const Prodavnica& p) {
+            out << "Ime: " << p.name << "\n";
+            out << "Lokacija: " << p.location << "\n";
+            out << "Broj na vidovi ochila: " << p.numTypes << "\n";
             for (int i = 0; i < p.numTypes; ++i)
-                out << i + 1 << ". Brand: " << p.glasses[i].brand << ", Kolicina: " << p.glasses[i].quantity << endl;
+                out << i + 1 << ". Brand: " << p.glasses[i].brand << ", Kolicina: " << p.glasses[i].quantity << "\n";
             return out;
         }
 };
@@ -116,16 +113,16 @@ int main() {
     p += o2;
 
     p -= o3;
-
-    cout << "Po dodavanje:\n" << p << endl;
+    
+    std::cout << "Po dodavanje:\n" << p << std::endl;
 
     ++p;
 
-    cout << "\nPo ++ (otstranuvanje posledniot):\n" << p << endl;
+    std::cout << "\nPo ++ (otstranuvanje posledniot):\n" << p << std::endl;
 
     --p;
 
-    cout << "\nPo -- (otstranuvanje prviot):\n" << p << endl;
+    std::cout << "\nPo -- (otstranuvanje prviot):\n" << p << std::endl;
 
     return 0;
 }
