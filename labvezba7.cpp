@@ -110,15 +110,15 @@ int main() {
 
         p -= o3;
 
-        std::cout << "Po dodavanje:\n" << p << std::endl;
+        std::cout << "Po dodavanje:\n" << p << "\n";
 
         ++p;
 
-        std::cout << "\nPo ++ (otstranuvanje posledniot):\n" << p << std::endl;
+        std::cout << "\nPo ++ (otstranuvanje posledniot):\n" << p << "\n";
 
         --p;
 
-        std::cout << "\nPo -- (otstranuvanje prviot):\n" << p << std::endl;
+        std::cout << "\nPo -- (otstranuvanje prviot):\n" << p << "\n";
 
         return 0;
 }
