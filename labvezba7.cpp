@@ -99,11 +99,11 @@ class Prodavnica {
         }
 };
 int main() {
-        Prodavnica p("Optika Trend", "Skopje");
+        Prodavnica p("FEIT", "Skopje");
 
-        Ochela o1("RayBan", 10);
-        Ochela o2("Gucci", 5);
-        Ochela o3("Prada", 8);
+        Ochela o1("Brand1", 10);
+        Ochela o2("Brand2", 5);
+        Ochela o3("Brand3", 8);
 
         p += o1;
         p += o2;
