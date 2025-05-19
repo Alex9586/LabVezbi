@@ -3,143 +3,142 @@
 
 class Sadnica {
 protected:
-    char *ime;
-    float osnovna_cena;
+    char *name;
+    float base_price;
 
 public:
-    Sadnica(const char *ime = "", float cena = 0.0) {
-        this->ime = new char[strlen(ime) + 1];
-        strcpy(this->ime, ime);
-        osnovna_cena = cena;
+    Sadnica(const char *name = "", float price = 0.0) {
+        this->name = new char[strlen(name) + 1];
+        strcpy(this->name, name);
+        base_price = price;
     }
 
-    Sadnica(const Sadnica &s) {
-        this->ime = new char[strlen(s.ime) + 1];
-        strcpy(this->ime, s.ime);
-        osnovna_cena = s.osnovna_cena;
+    Sadnica(const Sadnica &p) {
+        this->name = new char[strlen(p.name) + 1];
+        strcpy(this->name, p.name);
+        base_price = p.base_price;
     }
 
-    Sadnica &operator=(const Sadnica &s) {
-        if (this != &s) {
-            delete[] ime;
-            this->ime = new char[strlen(s.ime) + 1];
-            strcpy(this->ime, s.ime);
-            osnovna_cena = s.osnovna_cena;
+    Sadnica &operator=(const Sadnica &p) {
+        if (this != &p) {
+            delete[] name;
+            this->name = new char[strlen(p.name) + 1];
+            strcpy(this->name, p.name);
+            base_price = p.base_price;
         }
         return *this;
     }
 
     virtual ~Sadnica() {
-        delete[] ime;
+        delete[] name;
     }
 
-    virtual float presmetaj_cena() const {
-        return osnovna_cena;
+    virtual float calculate_price() const {
+        return base_price;
     }
 
-    virtual void pechati() const {
-        std::cout << "Ime: " << ime << ", Osnovna cena: " << osnovna_cena << "\n";
+    virtual void print() const {
+        std::cout << "Ime: " << name << ", Osnovna cena: " << base_price << "\n";
     }
 };
 
-class Drvo : public Sadnica {
+class Devo : public Sadnica {
 private:
-    int meseci;
+    int months;
 
 public:
-    Drvo(const char *ime = "", float cena = 0.0, int meseci = 0)
-        : Sadnica(ime, cena) {
-        this->meseci = meseci;
+    Devo(const char *name = "", float price = 0.0, int months = 0)
+        : Sadnica(name, price) {
+        this->months = months;
     }
 
-    Drvo(const Drvo &d) : Sadnica(d) {
-        this->meseci = d.meseci;
+    Devo(const Devo &t) : Sadnica(t) {
+        this->months = t.months;
     }
 
-    Drvo &operator=(const Drvo &d) {
-        if (this != &d) {
-            Sadnica::operator=(d);
-            this->meseci = d.meseci;
+    Devo &operator=(const Devo &t) {
+        if (this != &t) {
+            Sadnica::operator=(t);
+            this->months = t.months;
         }
         return *this;
     }
 
-    float presmetaj_cena() const override {
-        int broj_dvojki = meseci / 2;
-        return osnovna_cena * (1 + 0.10f * broj_dvojki);
+    float calculate_price() const override {
+        int pairs_of_months = months / 2;
+        return base_price * (1 + 0.10f * pairs_of_months);
     }
 
-    void pechati() const override {
-        Sadnica::pechati();
-        std::cout << "Tip: Drvo, Meseci: " << meseci << ", Cena: " << presmetaj_cena() << "\n";
+    void print() const override {
+        Sadnica::print();
+        std::cout << "Tip: Drvo, Meseci: " << months << ", Cena: " << calculate_price() << "\n";
     }
 };
 
 class Cvet : public Sadnica {
 private:
-    int denovi;
+    int days_blooming;
 
 public:
-    Cvet(const char *ime = "", float cena = 0.0, int denovi = 0)
-        : Sadnica(ime, cena) {
-        this->denovi = denovi;
+    Cvet(const char *name = "", float price = 0.0, int days = 0)
+        : Sadnica(name, price) {
+        this->days_blooming = days;
     }
 
-    Cvet(const Cvet &c) : Sadnica(c) {
-        this->denovi = c.denovi;
+    Cvet(const Cvet &f) : Sadnica(f) {
+        this->days_blooming = f.days_blooming;
     }
 
-    Cvet &operator=(const Cvet &c) {
-        if (this != &c) {
-            Sadnica::operator=(c);
-            this->denovi = c.denovi;
+    Cvet &operator=(const Cvet &f) {
+        if (this != &f) {
+            Sadnica::operator=(f);
+            this->days_blooming = f.days_blooming;
         }
         return *this;
     }
 
-    float presmetaj_cena() const override {
-        if (denovi < 14)
-            return osnovna_cena / 2;
-        return osnovna_cena;
+    float calculate_price() const override {
+        if (days_blooming < 14)
+            return base_price / 2;
+        return base_price;
     }
 
-    void pechati() const override {
-        Sadnica::pechati();
-        std::cout << "Tip: Cvet, Denovi: " << denovi << ", Cena: " << presmetaj_cena() << "\n";
+    void print() const override {
+        Sadnica::print();
+        std::cout << "Tip: Cvet, Denovi: " << days_blooming << ", Cena: " << calculate_price() << "\n";
     }
 };
 
-void fja(Sadnica *niza[], int n) {
+void fla(Sadnica *array[], int n) {
     if (n == 0) return;
 
     int maxIndex = 0;
-    float maxCena = niza[0]->presmetaj_cena();
+    float maxPrice = array[0]->calculate_price();
 
     for (int i = 1; i < n; i++) {
-        float cena = niza[i]->presmetaj_cena();
-        if (cena > maxCena) {
-            maxCena = cena;
+        float price = array[i]->calculate_price();
+        if (price > maxPrice) {
+            maxPrice = price;
             maxIndex = i;
         }
     }
 
     std::cout << "Najskapa sadnica:" << "\n";
-    niza[maxIndex]->pechati();
+    array[maxIndex]->print();
 }
 
-// Главната функција
 int main() {
-    Sadnica *niza[20];
-    Drvo m("Lipa", 400, 12);
+    Sadnica *array[20];
+    Devo m("Lipa", 400, 12);
     Cvet sl1("Lubicica", 300, 20), sl2("Krin", 400, 10);
-    niza[0] = &m;
-    niza[1] = &sl1;
-    niza[2] = &sl2;
+    array[0] = &m;
+    array[1] = &sl1;
+    array[2] = &sl2;
 
-    fja(niza, 3);
-
+    fla(array, 3);
+    std::cout << "\n";
     sl2 = sl1;
-    sl2.pechati();
+    sl2.print();
 
     return 0;
 }
